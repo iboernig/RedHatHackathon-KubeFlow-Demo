@@ -23,7 +23,7 @@ RUN mkdir -p /deployer/${KUBEFLOW_SRC} &&\
 
 ADD kubeflow-deploy.sh /deployer/
 ADD additional-kubeflow.yml /deployer/
-
+ADD workbox.sh /deployer/
 
 
 
