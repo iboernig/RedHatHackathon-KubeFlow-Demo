@@ -2,7 +2,7 @@
 
 based on  https://www.lightbend.com/blog/how-to-deploy-kubeflow-on-lightbend-platform-openshift-introduction
 
-## Steps for developerment
+## Steps for development
 
 ```
 oc login ...
