@@ -11,8 +11,17 @@ oc create serviceaccount kubeflow-deployer
 oc adm policy add-cluster-role-to-user cluster-admin -z kubeflow-deployer
 # Run deployer & workbox pod to deploy kubeflow
 oc create -f ksonnet-workbox.yml
+```
 
-# Follow the logs
-oc logs -f -c kubeflow-deploy workbox-.....
 
+### Follow the logs
+```
+oc logs -f -c kubeflow-deploy $(oc get pods -o name -l deploymentconfig=workbox)
+```
+
+### Login into workbox
+```
+oc rsh $(oc get pods -o name -l deploymentconfig=workbox)
+cd /workspace/openshift/ks_app
+ks...
 ```
