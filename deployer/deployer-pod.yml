@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubeflow-deployer
+spec:
+  serviceAccountName: kubeflow-deployer
+  serviceAccount: kubeflow-deployer
+  containers:
+  - image: quay.io/rbo/redhathackathon-kubeflow-deployer
+    name: deployer-developer
+    command: [ "/bin/sh", "-c", "/deployer/kubeflow-deploy.sh" ]
+  restartPolicy: Never
