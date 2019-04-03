@@ -1,7 +1,10 @@
 #!/bin/bash
 
 echo # Create ~/.kube/config
+NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+
 oc login kubernetes.default.svc.cluster.local --insecure-skip-tls-verify --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token )
+oc project $NAMESPACE
 
 echo "Start Deployment Script"
 cd /deployer/
@@ -10,7 +13,6 @@ cd /deployer/
 cd $KFAPP
 /deployer/scripts/kfctl.sh generate k8s
 #Set SCC Policies to anyuid
-NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
 oc adm policy add-scc-to-user anyuid -z ambassador -n $NAMESPACE
 oc adm policy add-scc-to-user anyuid -z jupyter -n $NAMESPACE
 oc adm policy add-scc-to-user anyuid -z katib-ui -n $NAMESPACE
@@ -26,5 +28,5 @@ cd /deployer/$KFAPP
 /deployer/scripts/kfctl.sh apply k8s
 
 
-oc create -f /deployer/additional-kubeflow.yml
-
+oc apply -f /deployer/additional-kubeflow.yml -n $NAMESPACE
+oc expose service/ambassador -n $NAMESPACE
