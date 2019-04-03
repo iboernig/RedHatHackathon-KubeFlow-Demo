@@ -22,6 +22,7 @@ RUN mkdir -p /deployer/${KUBEFLOW_SRC} &&\
     curl https://raw.githubusercontent.com/kubeflow/kubeflow/${KUBEFLOW_TAG}/scripts/download.sh | bash
 
 ADD kubeflow-deploy.sh /deployer/
+ADD additional-kubeflow.yml /deployer/
 
 
 

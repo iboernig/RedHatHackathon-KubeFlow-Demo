@@ -15,6 +15,7 @@ oc adm policy add-scc-to-user anyuid -z ambassador -n $NAMESPACE
 oc adm policy add-scc-to-user anyuid -z jupyter -n $NAMESPACE
 oc adm policy add-scc-to-user anyuid -z katib-ui -n $NAMESPACE
 oc adm policy add-scc-to-user anyuid -z default -n $NAMESPACE
+
 # Go to KS App Dir
 cd /deployer/$KFAPP/ks_app
 # Set to latest Images
@@ -23,3 +24,7 @@ ks param set tf-job-operator tfJobImage gcr.io/kubeflow-images-public/tf_operato
 cd /deployer/$KFAPP
 # Apply KFCTL
 /deployer/scripts/kfctl.sh apply k8s
+
+
+oc create -f /deployer/additional-kubeflow.yml
+
