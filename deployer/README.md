@@ -6,7 +6,7 @@ based on  https://www.lightbend.com/blog/how-to-deploy-kubeflow-on-lightbend-pla
 
 ```
 oc login ...
-oc new-project kubeflow
+oc new-project <your-namespace>
 oc create serviceaccount kubeflow-deployer
 oc adm policy add-cluster-role-to-user cluster-admin -z kubeflow-deployer
 # Run deployer pod to deploy kubeflow
