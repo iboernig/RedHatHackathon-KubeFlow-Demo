@@ -18,6 +18,7 @@ oc adm policy add-scc-to-user anyuid -z ambassador -n $K8S_NAMESPACE
 oc adm policy add-scc-to-user anyuid -z jupyter -n $K8S_NAMESPACE
 oc adm policy add-scc-to-user anyuid -z katib-ui -n $K8S_NAMESPACE
 oc adm policy add-scc-to-user anyuid -z default -n $K8S_NAMESPACE
+oc adm policy add-scc-to-user anyuid -z seldon -n $K8S_NAMESPACE
 
 # Go to KS App Dir
 cd ${STORAGE}/$KFAPP/ks_app
