@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo # Create ~/.kube/config
-NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+export K8S_NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
 
 oc login kubernetes.default.svc.cluster.local --insecure-skip-tls-verify --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token )
-oc project $NAMESPACE
+oc project $K8S_NAMESPACE
 
 echo "Start Deployment Script"
 cd /deployer/
@@ -13,10 +13,10 @@ cd /deployer/
 cd $KFAPP
 /deployer/scripts/kfctl.sh generate k8s
 #Set SCC Policies to anyuid
-oc adm policy add-scc-to-user anyuid -z ambassador -n $NAMESPACE
-oc adm policy add-scc-to-user anyuid -z jupyter -n $NAMESPACE
-oc adm policy add-scc-to-user anyuid -z katib-ui -n $NAMESPACE
-oc adm policy add-scc-to-user anyuid -z default -n $NAMESPACE
+oc adm policy add-scc-to-user anyuid -z ambassador -n $K8S_NAMESPACE
+oc adm policy add-scc-to-user anyuid -z jupyter -n $K8S_NAMESPACE
+oc adm policy add-scc-to-user anyuid -z katib-ui -n $K8S_NAMESPACE
+oc adm policy add-scc-to-user anyuid -z default -n $K8S_NAMESPACE
 
 # Go to KS App Dir
 cd /deployer/$KFAPP/ks_app
@@ -28,5 +28,5 @@ cd /deployer/$KFAPP
 /deployer/scripts/kfctl.sh apply k8s
 
 
-oc apply -f /deployer/additional-kubeflow.yml -n $NAMESPACE
-oc expose service/ambassador -n $NAMESPACE
+oc apply -f /deployer/additional-kubeflow.yml -n $K8S_NAMESPACE
+oc expose service/ambassador -n $K8S_NAMESPACE
